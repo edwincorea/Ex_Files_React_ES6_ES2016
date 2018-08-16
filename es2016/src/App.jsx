@@ -122,9 +122,26 @@ class App extends Component {
     this.registerLanguage(nextState)
   }
 
+  prepareStyles = () => {
+    let {rules} = this.state
+    let styles = []
+    for (let i = 0; i < rules; i++) {
+      styles.push(`
+        .hlsj-${this.state["name" + i]} {
+          ${this.state["style" + i]}
+        }
+      `)
+    }
+
+    let newStyles = "".concat(styles).replace(",", "")
+
+    return newStyles
+  }
+
   render() {
     let {editor} = this.state
-    let {handleChange, newFields, rules, convertToMarkup} = this
+    let {handleChange, newFields, rules, 
+         convertToMarkup, prepareStyles} = this
 
     return (
       <Container>
@@ -142,11 +159,12 @@ class App extends Component {
           </Button>
           <Document>
             <Editor
-              name={"Editor"}
+              name={"editor"}
               value={editor}
               onChange={handleChange}
             />
             <Markup
+              customStyles={prepareStyles()}
               dangerouslySetInnerHTML={convertToMarkup(editor)}
             />
           </Document>
