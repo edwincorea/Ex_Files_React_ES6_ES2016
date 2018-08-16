@@ -56,6 +56,8 @@ class App extends Component {
         </Row>
       )
     }
+
+    return array
   }
 
   newFields = () => {
