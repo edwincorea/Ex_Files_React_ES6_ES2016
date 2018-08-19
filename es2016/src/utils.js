@@ -1,5 +1,4 @@
 class Random {
-
     constructor(max = 1000, allowNegatives = true) {
         this.max = max
         this.allowNegatives = allowNegatives
@@ -20,7 +19,35 @@ class Random {
     }
 }
 
-export const rando = new Random()
+class Colorgenerator extends Random {        
+    types = ['hex', 'rgb']
+
+    constructor(max = 1000, allowNegatives = true, type = 'rgb') {
+        super(max, allowNegatives)
+        
+        if(this.types.includes(type)) {
+            this.type = type            
+        }
+        else {
+            this.type = 'rgb'
+        }
+    }
+
+    color() {
+        let r = super.randomInt(0, 255)
+        let g = super.randomInt(0, 255)
+        let b = super.randomInt(0, 255)
+
+        if (this.type === 'hex') {
+            return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`
+        }
+        else {
+            return `rgb(${r}, ${g}, ${b})`
+        }
+    }
+}
+
+export const rando = new Colorgenerator()
 
 const shakespeareApi = 'https://api.graph.cool/simple/v1/shakespeare'
 
