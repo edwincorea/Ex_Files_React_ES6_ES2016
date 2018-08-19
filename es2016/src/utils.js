@@ -1,10 +1,10 @@
-const shakespeareApi = "https://api.graph.cool/simple/v1/shakespeare"
+const shakespeareApi = 'https://api.graph.cool/simple/v1/shakespeare'
 
 let options = () => {
     return {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"        
+            'Content-Type': 'application/json'        
         },
         body: JSON.stringify({
             query: `{
