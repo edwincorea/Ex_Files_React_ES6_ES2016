@@ -20,12 +20,22 @@ class Random {
 }
 
 class Colorgenerator extends Random {        
-    types = ['hex', 'rgb']
+    typeList = [ 'hex', 'rgb' ]
+
+    get types() {
+        return this.typeList
+    }
+
+    set types(types = [ 'hex', 'rgb' ]) {
+        if (Array.isArray(types)) {
+            this.typeList = types.map(type => type)            
+        }
+    }
 
     constructor(max = 1000, allowNegatives = true, type = 'rgb') {
         super(max, allowNegatives)
         
-        if(this.types.includes(type)) {
+        if (this.typeList.includes(type)) {
             this.type = type            
         }
         else {
