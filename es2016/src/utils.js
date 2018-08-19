@@ -82,3 +82,7 @@ let options = () => {
         })
     }
 }
+
+fetch(shakespeareApi, options()).then( response => response.json()).then(json => {
+    console.log(json)
+})
