@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Markup, Editor, Container, Column, Row, RuleInput, RuleLabel, StyleInput, Button, Document } from './styled'
 import hljs from 'highlight.js'
-import {getRandomPoem} from './utils'
+import {rando, getRandomPoem} from './utils'
 
 class App extends Component {
 
@@ -133,6 +133,10 @@ class App extends Component {
         }
 
         let newStyles = ''.concat(styles).replace(',', '')
+
+        while (newStyles.includes('random')) {
+            newStyles = newStyles.replace('random', rando.color())
+        }
 
         return newStyles
     }
