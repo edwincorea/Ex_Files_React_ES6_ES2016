@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Markup, Editor, Container, Column, Row, RuleInput, RuleLabel, StyleInput, Button, Document } from './styled'
 import hljs from 'highlight.js'
+import {getRandomPoem} from './utils'
 
 class App extends Component {
 
@@ -136,38 +137,54 @@ class App extends Component {
         return newStyles
     }
 
-    render() {
-        let { editor } = this.state
-        let { handleChange, newFields, rules, convertToMarkup, prepareStyles } = this
-        return (
-            <Container>
-                <Column>
-                    {rules}
-                    <Button
-                        onClick={newFields}
-                    >
+  getRandomText = async () => {
+      try {
+          let poem = await getRandomPoem()
+          this.handleChange({
+              target: {
+                  name: 'editor',
+                  value: poem
+              }
+          })
+      } catch (error) {
+          console.log('getRandomPoem error', error)
+      }
+  }
+
+  render() {
+      let { editor } = this.state
+      let { handleChange, newFields, rules, convertToMarkup, prepareStyles, getRandomText} = this
+      return (
+          <Container>
+              <Column>
+                  {rules}
+                  <Button
+                      onClick={newFields}
+                  >
                     New Rule
-                    </Button>
-                </Column>
-                <Column>
-                    <Button>
+                  </Button>
+              </Column>
+              <Column>
+                  <Button
+                      onClick={getRandomText}
+                  >
                     Random Text
-                    </Button>
-                    <Document>
-                        <Editor
-                            name={'editor'}
-                            value={editor}
-                            onChange={handleChange}
-                        />
-                        <Markup
-                            customStyles={prepareStyles()}
-                            dangerouslySetInnerHTML={convertToMarkup(editor)}
-                        />
-                    </Document>
-                </Column>
-            </Container>
-        )
-    }
+                  </Button>
+                  <Document>
+                      <Editor
+                          name={'editor'}
+                          value={editor}
+                          onChange={handleChange}
+                      />
+                      <Markup
+                          customStyles={prepareStyles()}
+                          dangerouslySetInnerHTML={convertToMarkup(editor)}
+                      />
+                  </Document>
+              </Column>
+          </Container>
+      )
+  }
 }
 
 export default App
